@@ -22,6 +22,12 @@ app.set("views", path.join(__dirname, "app_server/views"));
 handlebars.registerPartials(path.join(__dirname, "app_server/views/partials"));
 app.set("view engine", "hbs");
 
+// register handlebars helper for selecting value based on equality
+// https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value
+handlebars.registerHelper("eq", (arg1, arg2, options) => {
+    return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
