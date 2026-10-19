@@ -13,8 +13,12 @@ var contactRouter = require("./app_server/routes/contact");
 var roomsRouter = require("./app_server/routes/rooms");
 var mealsRouter = require("./app_server/routes/meals");
 var newsRouter = require("./app_server/routes/news");
+var apiRouter = require("./app_api/routes/index");
 
 var app = express();
+
+// Bring in the database
+require("./app_api/models/db");
 
 // view engine setup
 app.set("views", path.join(__dirname, "app_server/views"));
@@ -42,6 +46,7 @@ app.use("/contact", contactRouter);
 app.use("/rooms", roomsRouter);
 app.use("/meals", mealsRouter);
 app.use("/news", newsRouter);
+app.use("/api", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

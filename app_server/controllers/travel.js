@@ -1,12 +1,32 @@
-var fs = require("fs");
-var trips = JSON.parse(fs.readFileSync("./data/trips.json", "utf-8"));
+const tripsEndpoint = "http://localhost:3000/api/trips";
+const options = {
+    method: "GET",
+    headers: {
+        Accept: "application/json",
+    },
+};
 
-const travel = (req, res) => {
-    res.render("travel", {
-        title: "Travlr Getaways",
-        trips,
-        currentUrl: "travel/",
-    });
+const travel = async (req, res) => {
+    await fetch(tripsEndpoint, options)
+        .then((res) => res.json())
+        .then((json) => {
+            let message;
+            if (!(json instanceof Array)) {
+                message = "API lookup error";
+                json = [];
+            } else {
+                if (!json.length) {
+                    message = "No trips exist in our database!";
+                }
+            }
+            res.render("travel", {
+                title: "Travlr Getaways",
+                trips: json,
+                currentUrl: "travel/",
+                message,
+            });
+        })
+        .catch((err) => res.status(500).send(err.message));
 };
 
 module.exports = { travel };
