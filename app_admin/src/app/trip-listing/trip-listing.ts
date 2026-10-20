@@ -1,10 +1,12 @@
-import { CurrencyPipe, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { trips } from '../data/trips';
 
+import { TripCard } from '../trip-card/trip-card';
+
 @Component({
   selector: 'app-trip-listing',
-  imports: [JsonPipe, CurrencyPipe],
+  imports: [CommonModule, TripCard],
   templateUrl: './trip-listing.html',
   styleUrl: './trip-listing.css',
 })
