@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { trips } from '../data/trips';
 
+import { TripData } from '../services/trip-data';
 import { TripCard } from '../trip-card/trip-card';
 
 @Component({
@@ -12,8 +13,28 @@ import { TripCard } from '../trip-card/trip-card';
 })
 export class TripListing implements OnInit {
   trips: Array<any> = trips;
+  message: string = '';
+  constructor(private tripDataService: TripData = inject(TripData)) {}
 
-  constructor() {}
+  private getStuff(): void {
+    this.tripDataService.getTrips().subscribe({
+      next: (value: any) => {
+        this.trips = value;
+        if (value.length > 0) {
+          this.message = 'There are ' + value.length + ' trips available.';
+        } else {
+          this.message = 'There were no trips retireved from the database';
+        }
+        console.log(this.message);
+      },
+      error: (error: any) => {
+        console.log('Error: ' + error);
+      },
+    });
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('ngOnInit');
+    this.getStuff();
+  }
 }
