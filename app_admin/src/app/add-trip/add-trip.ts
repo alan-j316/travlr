@@ -1,14 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TripData } from '../services/trip-data';
-
+import {CommonModule} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {TripData} from '../services/trip-data';
+import {ReactiveFormsModule} from "@angular/forms"
 
 @Component({
   selector: 'app-add-trip',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-trip.html',
   styleUrl: './add-trip.css',
 })
@@ -16,11 +16,14 @@ import { TripData } from '../services/trip-data';
 export class AddTrip implements OnInit {
   addForm!: FormGroup;
   submitted = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private tripService: TripData,
-  ) {}
+  ) {
+  }
+
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       _id: [],
@@ -34,6 +37,7 @@ export class AddTrip implements OnInit {
       description: ['', Validators.required],
     });
   }
+
   public onSubmit() {
     this.submitted = true;
     if (this.addForm.valid) {
@@ -48,6 +52,7 @@ export class AddTrip implements OnInit {
       });
     }
   }
+
   // get the form short name to access the form fields
   get f() {
     return this.addForm.controls;
