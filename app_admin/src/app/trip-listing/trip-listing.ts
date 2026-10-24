@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { trips } from '../data/trips';
 
 import { TripData } from '../services/trip-data';
@@ -14,7 +15,7 @@ import { TripCard } from '../trip-card/trip-card';
 export class TripListing implements OnInit {
   trips: Array<any> = trips;
   message: string = '';
-  constructor(private tripDataService: TripData = inject(TripData)) {}
+  constructor(private tripDataService: TripData = inject(TripData), private router: Router) {}
 
   private getStuff(): void {
     this.tripDataService.getTrips().subscribe({
@@ -35,6 +36,10 @@ export class TripListing implements OnInit {
 
   ngOnInit(): void {
     console.log('ngOnInit');
-    this.getStuff();
+    this.getStuff(); 
+  }
+
+  public addTrip(): void {
+    this.router.navigate(['add-trip'])
   }
 }
