@@ -18,11 +18,40 @@ const tripList = async (req, res) => {
     }
 };
 
+
+// POST: /trips - add a trip
+// Must always return an HTML status code and JSON message to the client
+const tripsAddTrip = async (req, res) => {
+    const newTrip = new Trip({
+        code: req.body.code,
+        name: req.body.name,
+        length: req.body.length,
+        start: req.body.start,
+        resort: req.body.resort,
+        perPerson: req.body.perPerson,
+        image: req.body.image,
+        description: req.body.description
+    })
+
+    const q = await newTrip.save();
+
+    if (!q) {
+        // Trip wasn't added
+        return res.status(400).json(err);
+    } else {
+        // Trip was added
+        return res.status(201).json(q);
+    }
+
+    // Uncomment these lines for debugging purposes
+    // console.log(q)
+}
+
+
 // GET: /trips/:tripCode - lists a single trip
-// Regardless of outcome, response must include HTML status code
-// and JSON message to the requesting client
+// Must always return an HTML status code and JSON message to the client
 const tripsFindByCode = async (req, res) => {
-    const q = await Model.find({ code: req.params.tripCode }) // Return single code
+    const q = await Model.find({code: req.params.tripCode}) // Return single code
         .exec();
 
     // Uncomment the code for debugging purposes
@@ -36,4 +65,4 @@ const tripsFindByCode = async (req, res) => {
     }
 };
 
-module.exports = { tripList, tripsFindByCode };
+module.exports = {tripList, tripsFindByCode};
