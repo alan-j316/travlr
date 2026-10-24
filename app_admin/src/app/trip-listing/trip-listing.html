@@ -1,6 +1,6 @@
 <div class="row mx-auto">
   <!-- https://stackoverflow.com/questions/78129406/the-ngfor-directive-was-used-in-the-template-but-neither-the-ngfor-directi -->
-  @for (trip of trips; track trip.id) {
+  @for (trip of trips; track trip.code) {
     <div class="col-12 col-md-6 col-xl-4 col-xxl-3 px-2 py-3">
       <app-trip-card [trip]="trip" class="card-deck mt-2"></app-trip-card>
     </div>
