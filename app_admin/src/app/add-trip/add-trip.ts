@@ -1,9 +1,8 @@
-import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {TripData} from '../services/trip-data';
-import {ReactiveFormsModule} from "@angular/forms"
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TripData } from '../services/trip-data';
 
 @Component({
   selector: 'app-add-trip',
@@ -12,7 +11,6 @@ import {ReactiveFormsModule} from "@angular/forms"
   templateUrl: './add-trip.html',
   styleUrl: './add-trip.css',
 })
-
 export class AddTrip implements OnInit {
   addForm!: FormGroup;
   submitted = false;
@@ -21,8 +19,7 @@ export class AddTrip implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private tripService: TripData,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({

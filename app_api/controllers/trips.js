@@ -18,7 +18,6 @@ const tripList = async (req, res) => {
     }
 };
 
-
 // POST: /trips - add a trip
 // Must always return an HTML status code and JSON message to the client
 const tripsAddTrip = async (req, res) => {
@@ -30,8 +29,8 @@ const tripsAddTrip = async (req, res) => {
         resort: req.body.resort,
         perPerson: req.body.perPerson,
         image: req.body.image,
-        description: req.body.description
-    })
+        description: req.body.description,
+    });
 
     const q = await newTrip.save();
 
@@ -45,13 +44,12 @@ const tripsAddTrip = async (req, res) => {
 
     // Uncomment these lines for debugging purposes
     // console.log(q)
-}
-
+};
 
 // GET: /trips/:tripCode - lists a single trip
 // Must always return an HTML status code and JSON message to the client
 const tripsFindByCode = async (req, res) => {
-    const q = await Model.find({code: req.params.tripCode}) // Return single code
+    const q = await Model.find({ code: req.params.tripCode }) // Return single code
         .exec();
 
     // Uncomment the code for debugging purposes
@@ -65,4 +63,4 @@ const tripsFindByCode = async (req, res) => {
     }
 };
 
-module.exports = {tripList, tripsFindByCode};
+module.exports = { tripList, tripsFindByCode, tripsAddTrip };
