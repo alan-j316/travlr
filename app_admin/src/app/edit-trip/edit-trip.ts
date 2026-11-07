@@ -47,9 +47,13 @@ export class EditTrip implements OnInit {
     });
     this.tripDataService.getTrip(tripCode).subscribe({
       next: (value: any) => {
+        const tripRecord = { ...value[0] };
+        if (tripRecord.start) {
+          tripRecord.start = tripRecord.start.split('T')[0];
+        }
         this.trip = value;
         // Populate our record into the form
-        this.editForm.patchValue(value[0]);
+        this.editForm.patchValue(tripRecord);
         if (!value) {
           this.message = 'No Trip Retrieved!';
         } else {
