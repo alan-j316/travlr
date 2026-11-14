@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../models/user");
-const passport = require("passport")
+const passport = require("passport");
 
 const register = async (req, res) => {
     // Validate message to ensure that all parameters are present.
@@ -14,11 +14,18 @@ const register = async (req, res) => {
         password: "", // Start with empty password
     });
     user.setPassword(req.body.password);
-    const q = await user.save();
+    let q;
+    try {
+        q = await user.save();
+    } catch (err) {
+        return res
+            .status(400)
+            .json({ message: "An error occurred while creating the user!" });
+    }
 
     if (!q) {
         // Database returned no data
-        return res.status(400).json(err);
+        return res.status(400).json({ message: "User not found!" });
     } else {
         // Return new user token
         const token = user.generateJWT();

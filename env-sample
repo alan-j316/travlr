@@ -1,0 +1,2 @@
+# TODO: Rename to .env and place the key here
+JWT_SECRET=your_super_secret_key_here
