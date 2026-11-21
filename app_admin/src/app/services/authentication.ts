@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { AuthResponse } from '../models/auth-response';
-import { BROWSER_STORAGE } from '../storage';
 import { User } from '../models/user';
+import { BROWSER_STORAGE } from '../storage';
 import { TripData } from './trip-data';
 
 @Injectable({
@@ -73,7 +73,7 @@ export class Authentication {
     this.tripData.login(user, passwd).subscribe({
       next: (value: any) => {
         if (value) {
-          console.log(value);
+          //   console.log(value);
           this.authResp = value;
           this.saveToken(this.authResp.token);
         }
@@ -95,7 +95,7 @@ export class Authentication {
     this.tripData.register(user, passwd).subscribe({
       next: (value: any) => {
         if (value) {
-          console.log(value);
+          //   console.log(value);
           this.authResp = value;
           this.saveToken(this.authResp.token);
         }
