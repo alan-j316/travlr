@@ -31,7 +31,6 @@ export class Login {
     this.formError = '';
     if (!this.credentials.email || !this.credentials.password || !this.credentials.name) {
       this.formError = 'All fields are required, please try again';
-      this.router.navigateByUrl('#'); // Return to login page
     } else {
       this.doLogin();
     }
@@ -49,12 +48,15 @@ export class Login {
       // console.log('Router::Direct');
       this.router.navigate(['']);
     } else {
-      var timer = setTimeout(() => {
-        if (this.authenticationService.isLoggedIn()) {
-          // console.log('Router::Pause');
-          this.router.navigate(['']);
-        }
-      }, 3000);
+      this.formError = 'Invalid credentials! Please try again.';
+      //   var timer = setTimeout(() => {
+      //     if (this.authenticationService.isLoggedIn()) {
+      //       // console.log('Router::Pause');
+      //       this.router.navigate(['']);
+      //     } else {
+      //       this.formError = 'Invalid credentials! Please try again.';
+      //     }
+      //   }, 3000);
     }
   }
 }
