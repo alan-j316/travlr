@@ -101,7 +101,7 @@ export class Authentication {
         }
       },
       error: (error: any) => {
-        console.log('Error: ' + error);
+        console.log('Error: ' + error.message);
       },
     });
   }
