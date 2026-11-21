@@ -1,4 +1,4 @@
-<div class="ps-2 pb-1 pt-2">
+<div *ngIf="isLoggedIn()" class="ps-2 pb-1 pt-2">
   <button type="button" (click)="addTrip()" class="btn btn-info ps-4 pe-4">Add Trip</button>
 </div>
 <div class="row mx-auto">

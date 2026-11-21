@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Authentication } from '../services/authentication';
 import { TripData } from '../services/trip-data';
 import { TripCard } from '../trip-card/trip-card';
 
@@ -18,6 +19,7 @@ export class TripListing implements OnInit {
     private tripDataService: TripData = inject(TripData),
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private authentication: Authentication,
   ) {}
 
   private getStuff(): void {
@@ -46,5 +48,9 @@ export class TripListing implements OnInit {
 
   public addTrip(): void {
     this.router.navigate(['add-trip']);
+  }
+
+  public isLoggedIn() {
+    return this.authentication.isLoggedIn();
   }
 }
