@@ -15,7 +15,6 @@ export class Login {
   public formError: string = '';
   submitted = false;
   credentials = {
-    name: '',
     email: '',
     password: '',
   };
@@ -29,7 +28,7 @@ export class Login {
 
   public onLoginSubmit(): void {
     this.formError = '';
-    if (!this.credentials.email || !this.credentials.password || !this.credentials.name) {
+    if (!this.credentials.email || !this.credentials.password) {
       this.formError = 'All fields are required, please try again';
     } else {
       this.doLogin();
@@ -38,7 +37,7 @@ export class Login {
 
   private doLogin(): void {
     let newUser = {
-      name: this.credentials.name,
+      name: '',
       email: this.credentials.email,
     } as User;
     // console.log('LoginComponent::doLogin');
