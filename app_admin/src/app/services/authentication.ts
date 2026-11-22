@@ -53,7 +53,7 @@ export class Authentication {
         const payload = JSON.parse(atob(token.split('.')[1]));
         return payload.exp > Date.now() / 1000;
       } catch (e) {
-        // console.log(`Error: ${e}`);
+        console.log(`Error: ${e}`);
         return false;
       }
     } else {
@@ -101,13 +101,13 @@ export class Authentication {
     this.tripData.register(user, passwd).subscribe({
       next: (value: any) => {
         if (value && value.token) {
-          //   console.log(value);
+          console.log(value);
           this.authResp = value;
           this.saveToken(this.authResp.token);
         }
       },
       error: (error: any) => {
-        console.log('Error: ' + error);
+        console.log('Error: ' + error?.message);
       },
     });
   }

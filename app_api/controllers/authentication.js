@@ -16,16 +16,22 @@ const register = async (req, res) => {
     user.setPassword(req.body.password);
     let q;
     try {
+        const existingUser = await User.findOne({ where: { email } });
+        if (existingUser) {
+            return res.status(409).json({ error: "User already exists." });
+        }
         q = await user.save();
     } catch (err) {
+        console.log(`Error: ${err}`);
+
         return res
             .status(400)
             .json({ message: "An error occurred while creating the user!" });
     }
-
+    console.log(`Register: ${q}`);
     if (!q) {
         // Database returned no data
-        return res.status(400).json({ message: "User not found!" });
+        return res.status(404).json({ message: "User not found!" });
     } else {
         // Return new user token
         const token = user.generateJWT();
