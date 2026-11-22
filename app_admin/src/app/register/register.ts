@@ -44,11 +44,11 @@ export class Register {
       name: this.credentials.name,
       email: this.credentials.email,
     } as User;
-    // console.log('LoginComponent::doLogin');
+    //console.log('LoginComponent::doLogin');
     // console.log(this.credentials);
     this.authenticationService.register(newUser, this.credentials.password);
     if (this.authenticationService.isLoggedIn()) {
-      // console.log('Router::Direct');
+      console.log('Router::Direct');
       this.router.navigate(['']);
     } else {
       this.formError = 'Unknown error occurred! Please try again.';

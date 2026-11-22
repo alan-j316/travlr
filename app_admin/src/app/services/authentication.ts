@@ -47,9 +47,15 @@ export class Authentication {
   // reauthenticate if the token has expired
   public isLoggedIn(): boolean {
     const token: string = this.getToken();
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp > Date.now() / 1000;
+    // console.log(`Token: ${token}`);
+    if (token && token != undefined && token != null) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.exp > Date.now() / 1000;
+      } catch (e) {
+        // console.log(`Error: ${e}`);
+        return false;
+      }
     } else {
       return false;
     }
@@ -94,14 +100,14 @@ export class Authentication {
   public register(user: User, passwd: string): void {
     this.tripData.register(user, passwd).subscribe({
       next: (value: any) => {
-        if (value) {
+        if (value && value.token) {
           //   console.log(value);
           this.authResp = value;
           this.saveToken(this.authResp.token);
         }
       },
       error: (error: any) => {
-        console.log('Error: ' + error.message);
+        console.log('Error: ' + error);
       },
     });
   }

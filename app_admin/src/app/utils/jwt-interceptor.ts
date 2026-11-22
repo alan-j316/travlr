@@ -15,8 +15,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var isAuthAPI: boolean;
-    console.log('Interceptor::URL' + request.url);
-    if (request.url.startsWith('login') || request.url.startsWith('register')) {
+    const lastPart = request.url.split('/').pop();
+    // console.log('Interceptor::URL' + lastPart);
+
+    if (lastPart == 'login' || lastPart == 'register') {
       isAuthAPI = true;
     } else {
       isAuthAPI = false;
